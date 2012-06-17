@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 entries = DATA.readlines.reject { |v| v.strip.empty? }
-File.open( File.join('..', 'data', 'postaltownlist.txt'), 'w', { :encoding => 'utf-8' } ) do |f|
+File.open( File.join('..', 'lib', 'postaltownlist.txt'), 'w', { :encoding => 'utf-8' } ) do |f|
   entries.each do |l|
     values = l.split("\t")
     postal_code = values[0]

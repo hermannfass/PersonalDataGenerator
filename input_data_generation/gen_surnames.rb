@@ -1,6 +1,7 @@
-$KCODE='u'
+# encoding: utf-8
+
 list = DATA.read.split(/\s*,\s*/)
-File.open( File.join('..', 'surnamelist.txt'), 'w') do |f|
+File.open( File.join('..', 'lib', 'surnamelist.txt'), 'w') do |f|
   f.print( list.uniq.sort.join("\n") )
 end
 

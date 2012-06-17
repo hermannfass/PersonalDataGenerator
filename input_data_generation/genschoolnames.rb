@@ -1,5 +1,5 @@
 lines = DATA.readlines
-File.open('..\\schoolnamelist.txt', 'w') do |f|
+File.open( File.join( '..', 'lib', 'schoolnamelist.txt', 'w') do |f|
   f.print( lines.uniq.sort.join('') )
   # f.print( lines.sort.join('') )
 end

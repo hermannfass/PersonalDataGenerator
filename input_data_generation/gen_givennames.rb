@@ -1,5 +1,7 @@
+# encoding: utf-8
+
 entries = DATA.readlines.reject { |v| v.strip.empty? }
-File.open( File.join('..', 'data', 'givennamelist.txt'), 'w') do |f|
+File.open( File.join('..', 'lib', 'givennamelist.txt'), 'w') do |f|
   f.print( entries.uniq.sort.join('') )
 end
 

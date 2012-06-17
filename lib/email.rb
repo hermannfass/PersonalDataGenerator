@@ -5,7 +5,6 @@ require 'resolv'
 require 'xmlsimple'
 require 'date'
 
-$:.push( '/usr/lib/cgi-bin/lib/ruby' )
 require 'name'
 require 'stringextension'
 
@@ -165,7 +164,7 @@ class EmailAddressSource
           source = letters[v_or_c]
           random_string << source[rand(source.length)].chr
         end
-        domain = random_string + '.' + TLDs[rand(TLDs.length)]
+        domain = random_string + '.' + TLDs.sample
         # Loop will end (a) we don't care about MX records or (b) this domain
         # does not have an MX record, i.e. when non_mx_domain becomes true:
         non_mx_domain = @skip_mx_test || ( ! self.class.domain_has_mx_record?(domain) )

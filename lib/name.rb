@@ -36,8 +36,8 @@ class NameSource
   # Provide the path to a textfile with surnames (surname_path), one per line,
   # that can also consist of composed names. Again the results can look strange
   # when picking a name with multiple surnames later on.
-  def initialize( givenname_path = 'data/givennamelist.txt',
-                  surname_path = 'data/surnamelist.txt',
+  def initialize( givenname_path = File.join( File.dirname(__FILE__), 'givennamelist.txt' ),
+                  surname_path = File.join( File.dirname(__FILE__), 'surnamelist.txt' ),
                   title_likelihood = 5,
                   two_given_names_likelihood = 5,
                   two_surnames_likelihood = 5
@@ -62,13 +62,9 @@ class NameSource
   # To influence the likelihood of double given names, of composed surnames,
   # or of academic title, modify the instance variables
   # @two_given_names_likelihood, @two_surnames_likelihood, and @title_likelihood. 
-  #
-  # The third argument is a boolean value determining if this name should
-  # have an academic title. The default is false. If a true value is sent
-  # a random title will be choosen from the Class Constant named Title.
-  def record( )
-    givenname_quantity = ( rand(100) < @two_given_names_likelihood ) ? 2 : 1
-    surname_quantity = ( rand(100) < @two_surnames_likelihood ) ? 2 : 1
+  def record() 
+    givenname_quantity = (rand(100) < @two_given_names_likelihood) ? 2 : 1
+    surname_quantity = (rand(100) < @two_surnames_likelihood) ? 2 : 1
     givenname = @givenname_source.records(givenname_quantity).join(' ')
     surname = @surname_source.records(surname_quantity).join('-')
     title = ( rand(100) < @title_likelihood ) ? titles[rand(titles.length)] : ''
@@ -76,13 +72,11 @@ class NameSource
   end
 
   # Return an Array of random Name objects.
-  # The first parameter determines how many full names are to be generated.
-  # The other, optional parameters givenname_quantity and surname_quantity
-  # tell how many components each given name / surname should have.
-  def records( quantity = 1, givenname_quantity = 1, surname_quantity = 1, title_likelihood = 0 )
+  # The parameter determines how many full names are to be generated.
+  def records( quantity = 1 )
     names = []
     quantity.times do
-      names.push( self.record(givenname_quantity, surname_quantity, title_likelihood) )
+      names.push self.record()
     end
     names
   end

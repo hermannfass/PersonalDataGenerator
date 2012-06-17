@@ -2,13 +2,13 @@
 #
 # Set of classes to store personal data.
 
-$:.push( '/usr/lib/cgi-bin/lib/ruby' )
+require 'xmlsimple'
+require 'pp'
+
 require 'name'
 require 'address'
 require 'phone'
 require 'email'
-require 'xmlsimple'
-require 'pp'
 
 # Instances of this class represent people with data like name or address.
 class Person
@@ -98,10 +98,10 @@ class PersonSource
   # The arguments are paths to text files that should contain one record per
   # line with given names, surnames, street names, and town names respectively.
   # Each town name should be prepended by a postal code.
-  def initialize( givenname_path = 'data/givennamelist.txt',
-                  surname_path = 'data/surnamelist.txt',
-                  street_name_path = 'data/streetnamelist.txt',
-                  postal_town_path = 'data/postaltownlist.txt'
+  def initialize( givenname_path = 'givennamelist.txt',
+                  surname_path = 'surnamelist.txt',
+                  street_name_path = 'streetnamelist.txt',
+                  postal_town_path = 'postaltownlist.txt'
                  )
     @name_source = NameSource.new( givenname_path, surname_path )
     @address_source = AddressSource.new( street_name_path, postal_town_path )

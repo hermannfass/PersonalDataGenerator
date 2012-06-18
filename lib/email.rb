@@ -157,6 +157,10 @@ class EmailAddressSource
       # Removed some not so nice looking consonants:
       letters = { 'v' => 'aeiou', 'c' => 'bcdfghklmnprstwz' } 
       until( non_mx_domain )
+        # To do: This could be much more advanced:
+        # - Random length first, and then:
+        # - Allow 3 (and 4?) letter acronyms (vvv, cvc, vcc, ...)
+        # - cvc... or vcv...
         random_string = ''
         pattern = 'cvc' << 'vc'*rand(3)
         # pattern = 'cvc'

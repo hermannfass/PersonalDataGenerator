@@ -62,11 +62,12 @@ class NameSource
   # To influence the likelihood of double given names, of composed surnames,
   # or of academic title, modify the instance variables
   # @two_given_names_likelihood, @two_surnames_likelihood, and @title_likelihood. 
-  def record() 
-    givenname_quantity = (rand(100) < @two_given_names_likelihood) ? 2 : 1
-    surname_quantity = (rand(100) < @two_surnames_likelihood) ? 2 : 1
-    givenname = @givenname_source.records(givenname_quantity).join(' ')
-    surname = @surname_source.records(surname_quantity).join('-')
+  def record( 
+        arg_n_givennames = ( (rand(100) < @two_given_names_likelihood) ? 2 : 1 ),
+        arg_n_surnames   = ( (rand(100) < @two_surnames_likelihood) ? 2 : 1 )
+    )
+    givenname = @givenname_source.records(arg_n_givennames).join(' ')
+    surname = @surname_source.records(arg_n_surnames).join('-')
     title = ( rand(100) < @title_likelihood ) ? titles[rand(titles.length)] : ''
     Name.new( givenname, surname, title )
   end

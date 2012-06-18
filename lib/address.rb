@@ -17,14 +17,14 @@ class Address
   attr :town
 
   def initialize( house_number, street, postal_code, town )
-    @house_number = number
+    @house_number = house_number
     @street = street
-    @postal_code
+    @postal_code = postal_code
     @town = town
   end
 
   def to_s
-    "#{@street} #{@house_number}\n#{@postal_code} @town" 
+    "#{@street} #{@house_number}\n#{@postal_code} #{@town}" 
   end
 
   # Return the data for this address as a Hash with sub Hash elements.
@@ -87,7 +87,7 @@ class AddressSource
     house_number = @house_number_source.record()
     postal_code_and_town = @postal_town_source.record()
     # Very fragile / relies on proper input data file:
-    postal_code, town = postal_code_and_town.match(/(\w+)\s+(\w+)/)[1,2]
+    postal_code, town = postal_code_and_town.match(/(\w+)\s+(.+)/)[1,2]
     Address.new( house_number, street, postal_code, town )
   end
 

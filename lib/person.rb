@@ -5,6 +5,8 @@
 require 'xmlsimple'
 require 'pp'
 
+# Own modules
+$:.push( File.dirname(__FILE__) )
 require 'name'
 require 'address'
 require 'phone'

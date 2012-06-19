@@ -2,6 +2,8 @@
 #
 # Classes to generate person names and storing them.
 
+# Own modules
+$:.push( File.dirname(__FILE__) )
 require 'randomlist'
 
 # Class to generate random names.

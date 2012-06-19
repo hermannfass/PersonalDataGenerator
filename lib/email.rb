@@ -5,6 +5,8 @@ require 'resolv'
 require 'xmlsimple'
 require 'date'
 
+# Own modules
+$:.push( File.dirname(__FILE__) )
 require 'name'
 require 'stringextension'
 

@@ -4,6 +4,7 @@
 
 require 'xmlsimple'
 # Own modules
+$:.push( File.dirname(__FILE__) )
 require 'randomlist'
 
 # Class for postal addresses, consisting of a street name (with

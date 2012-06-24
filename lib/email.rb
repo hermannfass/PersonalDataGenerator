@@ -1,5 +1,7 @@
 # Classes for generating random email addresses.
 
+# To do: The 's' in patterns is not yet processed!
+
 require 'erb'
 require 'resolv'
 require 'xmlsimple'
@@ -9,11 +11,55 @@ require 'date'
 $:.push( File.dirname(__FILE__) )
 require 'name'
 require 'stringextension'
+require 'weightedarray'
 
 # Class to generate random email addresses for a person.
 class EmailAddressSource
 
-  # If this is set to true the domains are taken from the EmailDomains Array.
+  # Letters to be used for constructing 2nd level domain parts at random,
+  # i.e. to replace 'l' place holders. Mainly used in acronyms.
+  DefaultRandomSldLetters = 'abcdefghijklmnopqrstuvwxyz'
+
+  # Consonants to be used for constructing 2nd level domain parts at random,
+  # i.e. to replace 'c' place holders. Skipping some that do not look good
+  # in readable words.
+  DefaultRandomSldConsonants = 'bcdfghklmnprstwz'
+
+  # Vowels to be used for constructing 2nd level domain parts at random.
+  DefaultRandomSldVowels = 'aeeiou'
+
+  # Patterns that will be used to generate second level domain
+  # parts at random. The characters in these patterns are
+  # as follows:
+  # * l: Letter - any character in EmailAddressSource::DefaultLetters
+  # * c: Consonant - any character in EmailAddressSource::DefaultConsonants
+  # * v: Vowel - any character in EmailAddressSource::DefaultVowels
+  DefaultWeightedRandomSldPatterns = WeightedArray.new(
+             'lll' => 10,
+             'llll' => 6,
+             'cvcv' => 3,      'cvsc'      => 3,
+             'vcvc' => 3,      'vcvs'      => 3,
+             'cvcvc' => 3,     'cvscv'     => 3, 'cvcvs' => 3,
+             'vcvcv' => 3,     'vcvsc'     => 3,
+             'cvcvcv' => 2,    'cvscvc'    => 2, 'cvscvs' => 2,
+             'vcvcvc' => 1,    'vcvscv'    => 1, 'vcvcvs' => 1,
+             'cvcvcvc' => 1,   'cvscvcv'   => 1, 'cvcvscv' => 1,
+                               'cvscvsc'   => 1, 'cvcvcvs' => 1,
+             'vcvcvcv' => 1,   'vcvscvc'   => 1, 'vcvcvsc' => 1,
+                               'vcvsvsc'   => 1,
+             'cvcvcvcv' => 1,  'cvscvcvc'  => 1, 'cvcvscvc' => 1,
+                               'cvcvcvsc'  => 1, 'cvscvscv' => 1,
+             'vcvcvcvc' => 1,  'vcvscvcv'  => 1, 'vcvcvscv' => 1,
+                               'vcvcvcvs'  => 1, 'vcvscvsc' => 1,
+             'cvcvcvcvc' => 1, 'cvscvcvcv' => 1, 'cvcvscvcv' => 1,
+                               'cvcvcvscv' => 1, 'cvscvscvc' => 1,
+                               'cvscvscvs' => 1,
+             'vcvcvcvcv' => 1, 'vcvscvcvc' => 1, 'vcvcvscvc' => 1,
+                               'vcvcvcvsc' => 1, 'vcvscvscv' => 1,
+                               'vcvscvcvs' => 1
+  )
+
+  # If this is set to true the domains are taken from the RealDomains Array.
   # Note that when triggering emails to such domains you might end up in the
   # mail box of a real user. If not you still bother the respective mail
   # servers which is bad 'netiquette', thus please use real domains (set
@@ -36,8 +82,13 @@ class EmailAddressSource
   # get populated once it is needed.)
   attr_accessor :name_source
 
-  # Some popular email domains for choosing existing domains.
-  EmailDomains = %w(
+  # Patterns that are used to generate a random top level domain
+  # pattern.
+  attr_accessor :random_sld_patterns
+
+  # Some popular email domains that do exist. They will considered
+  # if the a real domain is requested.
+  RealDomains = %w(
                      aol.com arcor.de
                      comcast.net compuserve.com compuserve.net
                      freenet.de gmail.com gmx.de gmx.com gmx.net
@@ -80,6 +131,10 @@ class EmailAddressSource
   def initialize( real_domains = false, skip_mx_test = false )
     @use_real_domains = real_domains
     @skip_mx_test = skip_mx_test
+    @random_sld_patterns = DefaultWeightedRandomSldPatterns
+    @random_sld_letters = DefaultRandomSldLetters
+    @random_sld_consonants = DefaultRandomSldConsonants
+    @random_sld_vowels = DefaultRandomSldVowels
   end
 
   # Returns an email address as an EmailAddress instance,
@@ -96,7 +151,8 @@ class EmailAddressSource
       givenname = name
       surname = surname || ''
     end
-    username = random_username( givenname.remove_accents(), surname.remove_accents() )
+    username = random_username( givenname.remove_accents(),
+                                surname.remove_accents() )
     domain = random_domain()
     EmailAddress.new( username, domain )
   end
@@ -126,7 +182,9 @@ class EmailAddressSource
   # and children as 'address' elements.
   def records_as_xml( quantity = 1 )
     addr_arr = self.records(quantity)
-    XmlSimple.xml_out( { :address => addr_arr }, { :NoAttr=>true, :RootName=>:emailing, :XmlDeclaration=>true } )
+    XmlSimple.xml_out( { :address => addr_arr },
+                       { :NoAttr=>true, :RootName=>:emailing,
+                         :XmlDeclaration=>true } )
   end
 
   # Generate a random username from the givenname and
@@ -135,7 +193,8 @@ class EmailAddressSource
   # town instead of givenname and surname can also make
   # sense).
   def random_username( givenname_full, surname )
-    name_part_separator = UsernamePartSeparators[rand(UsernamePartSeparators.length)]
+    name_part_separator =
+      UsernamePartSeparators[rand(UsernamePartSeparators.length)]
     givenname = givenname_full.split(/\s/).join(name_part_separator)
     erb_template = ERB.new( UsernameTemplates[rand(UsernameTemplates.length)] )
     erb_template.result( binding )
@@ -151,29 +210,35 @@ class EmailAddressSource
   # person's email address.
   def random_domain( )
     if ( @use_real_domains )
-      return( EmailDomains[rand(EmailDomains.length)] )
+      # This is the only one where we want to return a domain that
+      # has an MX record!
+      return( RealDomains[rand(RealDomains.length)] )
     else
       domain = ''
-      non_mx_domain = false
+      no_mx_or_skip = false
       # letters = { 'v' => 'aeiou', 'c' => 'bcdfghjklmnpqrstvwxyz' } 
       # Removed some not so nice looking consonants:
       letters = { 'v' => 'aeiou', 'c' => 'bcdfghklmnprstwz' } 
-      until( non_mx_domain )
-        # To do: This could be much more advanced:
-        # - Random length first, and then:
-        # - Allow 3 (and 4?) letter acronyms (vvv, cvc, vcc, ...)
-        # - cvc... or vcv...
+      until( no_mx_or_skip )
         random_string = ''
-        pattern = 'cvc' << 'vc'*rand(3)
-        # pattern = 'cvc'
-        pattern.each_char do |v_or_c|
-          source = letters[v_or_c]
-          random_string << source[rand(source.length)].chr
+        last_char = ''
+        pattern = random_sld_patterns.sample
+        pattern.each_char do |l_or_v_or_c|
+          new_char = case l_or_v_or_c
+            when 'l' then @random_sld_letters[rand(@random_sld_letters.length)].chr
+            when 'c' then @random_sld_consonants[rand(@random_sld_consonants.length)].chr
+            when 'v' then @random_sld_vowels[rand(@random_sld_vowels.length)].chr
+            when 's' then last_char
+            else raise "Pattern contains a character other than l, v, c!"
+          end
+          random_string << new_char
+          last_char = new_char
         end
         domain = random_string + '.' + TLDs.sample
         # Loop will end (a) we don't care about MX records or (b) this domain
         # does not have an MX record, i.e. when non_mx_domain becomes true:
-        non_mx_domain = @skip_mx_test || ( ! self.class.domain_has_mx_record?(domain) )
+        no_mx_or_skip = @skip_mx_test ||
+                             ( ! self.class.domain_has_mx_record?(domain) )
       end
       return domain 
     end
@@ -231,7 +296,8 @@ class EmailAddress < String
   # The XML uses no attributes and the structure corresponds to the
   # Hash structure returned by EmailAddress#to_hash().
   def to_xml()
-    XmlSimple.xml_out( { :email => self.to_hash() }, { :KeepRoot=>true, :NoAttr=>true } )
+    XmlSimple.xml_out( { :email => self.to_hash() },
+                       { :KeepRoot=>true, :NoAttr=>true } )
   end
 
 end

@@ -34,6 +34,7 @@ class EmailAddressSource
   # * l: Letter - any character in EmailAddressSource::DefaultLetters
   # * c: Consonant - any character in EmailAddressSource::DefaultConsonants
   # * v: Vowel - any character in EmailAddressSource::DefaultVowels
+  # * s: Same letter - repeat the letter before this one.
   DefaultWeightedRandomSldPatterns = WeightedArray.new(
              'lll' => 10,
              'llll' => 6,
@@ -229,7 +230,7 @@ class EmailAddressSource
             when 'c' then @random_sld_consonants[rand(@random_sld_consonants.length)].chr
             when 'v' then @random_sld_vowels[rand(@random_sld_vowels.length)].chr
             when 's' then last_char
-            else raise "Pattern contains a character other than l, v, c!"
+            else raise "Pattern contains a character other than l, v, c, or s!"
           end
           random_string << new_char
           last_char = new_char

@@ -1,0 +1,36 @@
+Ruby tools for generating random personal data for test environments etc.
+
+The lib directory includes .txt files that contain sample data for
+German locations or German languae, respectively.
+
+name.rb
+  Generates people names. This does not only generate simple combinations
+  of one first and one last name, but also considers configurable
+  likelihood of double given names ("Karl-Heinz"), double surnames
+  ("Müller-Schmitz"), and titles ("Prof. Dr.").
+  Default files with German names are included:
+  * givennamelist.txt
+  * surnamelist.txt
+
+address.rb
+  Generates postal addresses, utilizing data files with street names
+  and town names including postal code. Default files are included:
+  * streetnamelist.txt
+    contains fictive street names in German language.
+  * postaltownlist.txt
+    contains a list of all German postal codes and the corresponding
+    town names.
+
+email.rb
+  Generate random email addresses. With regards to netiquette it is
+  possible to avoid domains that the random domain is an existing
+  email domain.
+
+phone.rb
+  Generates German phone numbers.
+  
+person.rb
+  Wraps personal data (name, address, phone, email address) into
+  a class.
+
+

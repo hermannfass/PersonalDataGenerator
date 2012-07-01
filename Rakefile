@@ -4,7 +4,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('personaldatagenerator', '0.2.0') do |p|
+Echoe.new('personaldatagenerator', '0.8.1') do |p|
   p.description = 'Tools for the generation of random personal data.'
   p.url = 'http://git@github.com:hermannfass/PersonalDataGenerator.git'
   p.author = 'Hermann Faß'

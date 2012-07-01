@@ -1,4 +1,5 @@
 Manifest
+README
 Rakefile
 lib/address.rb
 lib/email.rb
@@ -9,7 +10,6 @@ lib/phone.rb
 lib/postaltownlist.txt
 lib/randomlist.rb
 lib/streetnamelist.txt
-lib/stringextension.rb
 lib/surnamelist.txt
 lib/townlist.txt
-toolbox.gemspec
+personaldatagenerator.gemspec

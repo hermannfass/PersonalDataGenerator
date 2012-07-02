@@ -147,7 +147,7 @@ class EmailAddressSource
   def record_from_name( name, surname = nil )
     if ( name.kind_of?( Name ) )
       givenname = name.givenname
-      surname = name.surname
+      surname = name.surname || ''
     else
       givenname = name
       surname = surname || ''

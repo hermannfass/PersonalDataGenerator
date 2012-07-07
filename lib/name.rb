@@ -100,14 +100,16 @@ class Name
                     ]
   # Constant holding an Array of terms that might occur in front of a person's
   # first name (salutation, title) or be part of it.
-  Titles = [ 'Hrn.', 'Herr', 'Herrn', 'Fr.', 'Frau', 'Frl.', 'Fräulein',
-             'Mr.', 'Mr', 'Mister', 'Mrs', 'Mrs.', 'Missis', 'Miss', 'Ms.', 'Ms',
-             'M.', 'Monsieur', 'Mme', 'Madamme', 'Mlle', 'Mademoiselle',
-             'Dr. med.', 'Dr. phil.', 'Dr. rer. nat.', 
-             'Dr.', 'Dr', 'Prof. Dr.', 'Dr. h. c.', 'Dr.h.c.',
-             'Prinz', 'Sir', 'Lady', 'Dame'
-           ].sort.reverse
-                   
+  # Titles that might prepend the given name.
+  #--
+  # Start with more specific and end with those who might be included
+  # in the specific ones.
+  #++
+  Titles = [ 'Herr', 'Hr.', 'Frau', 'Fr.', 'Fräulein', 'Frl.',
+             'Mister', 'Mr.', 'Ms.', 'Missis', 'Mrs.', 'Miss',
+             'Dr. med.', 'Dr. phil.', 'Dr. rer. nat.', 'Dr. h. c.', 'Dr.',
+             'Prof.' ]
+
   # The given name part of this Name instance.
   attr_accessor :givenname
 
@@ -117,47 +119,27 @@ class Name
   # The title prefix of this name.
   attr_accessor :title
 
-  # Class method to parse the String representation of a full name
-  # and return its components title, given name, and surname.
-  # Assumptions for the algorithm:
-  # 1. A person can have multiple given names (space or hyphen separated).
-  # 2. A person can have multiple surnames, which are then separated by hyphens.
-  # 3. A surname can start with additional words (peerage). Words recognized as
-  #    belonging to the surname are defined in Name.SurnameSuffixes.
-  def self.parse_name( full_name )
-    # Examples:
-    # Hermann Faß
-    # Frau Anna Lieselotte von der Heide
-    # Frl. Anna-Lena Solda-Witt
-    # Prof. Dr. Hans-Christian Schmitt-Weinand
-    # Graf Albert Prinz von Allicante
-    givenname = nil
-    surname = nil
-    title = nil
-    Titles.each do |ttl|
-      if ( full_name.start_with?(ttl) )
-        title = ttl
-        break
-      end
-    end
-    SurnameSuffixes.each do |sns|
-      # TO DO: Match scheint inkorrekt
-      #                                         given
-      if md = full_name.match( /(?:#{title}\s+)?([-\w\s]+)\s+(#{Regexp.escape(sns)}\s+.*)$/u ) then
-        puts "Special"
-        givenname = md.captures[0] if md
-        surname = md.captures[1] if md
-        break
-      end
-    end
-    unless (givenname and surname)
-      md = full_name.match( /(?:#{title}\s+)?([-\w\s]+)\s+([-\w]+)$/u )
-      if (md)
-        givenname = md.captures[0]
-        surname = md.captures[1]
-      end
-    end
-    Name.new( givenname, surname, title )
+
+  # Class method for parsing a full name, consisting of optional 
+  # titles, a givenname and a surname, all separated by whitespace.
+  # The return value is an Array with the following elements:
+  # # Given name
+  # # Surname
+  # # Array of titles
+  #
+  # Titles are detected if they are part of the Name::Title Array
+  # and will be kept in the existing order.
+  # The given name can contain multiple parts joined with whitespace
+  # or hyphens. Surnames can consist of multiple words, which then
+  # must be separated by a hyphen; not by whitespace.
+  def self.parse_full_name( full_name )
+    title_regexp_str = '(?<=\W)' + Titles.collect{ |t| Regexp.escape(t) }.join('|') + '(?=\s)'
+    titles = full_name.scan( /#{title_regexp_str}/ )
+    untitled = titles.empty? ?
+               full_name :
+               full_name.match( /(?:(?:#{Titles.join('|')})\s+)*(.+)/ ).captures[0]
+    first, last = untitled.match( /(.*)\s+(\S+)/ ).captures
+    [ first, last, titles ]
   end
 
   # Constructor.
@@ -170,7 +152,7 @@ class Name
       @surname = last
       @title = title
     else
-      @givenname, @surname, @title = self.parse_name( first )
+      @givenname, @surname, @title = self.parse_full_name( first )
     end
     # The following gives surprises when modifying the givenname or surname later on!
     # => Defining to_s instead!

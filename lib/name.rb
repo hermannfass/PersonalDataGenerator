@@ -1,6 +1,15 @@
 # encoding: utf-8
 #
 # Classes to generate person names and storing them.
+#
+# Synopsis:
+# 
+#   gen = NameSource.new()
+#   puts gen.records(20).join("\n")
+#
+# Author: Hermann Faß, hf at zwergfell dot de
+#   
+# Code at https://github.com/hermannfass/PersonalDataGenerator/
 
 # Own modules
 require 'weightedarray'
@@ -187,5 +196,4 @@ class Name
 
 end
 
-gen = NameSource.new()
-puts gen.records(20).join("\n")
+

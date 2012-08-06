@@ -100,10 +100,10 @@ class PersonSource
   # The arguments are paths to text files that should contain one record per
   # line with given names, surnames, street names, and town names respectively.
   # Each town name should be prepended by a postal code.
-  def initialize( givenname_path = 'givennamelist.txt',
-                  surname_path = 'surnamelist.txt',
-                  street_name_path = 'streetnamelist.txt',
-                  postal_town_path = 'postaltownlist.txt'
+  def initialize( givenname_path = File.join(File.dirname(__FILE__), 'givennamelist.txt'),
+                  surname_path = File.join(File.dirname(__FILE__), 'surnamelist.txt'),
+                  street_name_path = File.join(File.dirname(__FILE__), 'streetnamelist.txt'),
+                  postal_town_path = File.join(File.dirname(__FILE__), 'postaltownlist.txt')
                  )
     @name_source = NameSource.new( givenname_path, surname_path )
     @address_source = AddressSource.new( street_name_path, postal_town_path )

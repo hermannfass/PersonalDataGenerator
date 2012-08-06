@@ -190,6 +190,10 @@ class Name
     # replace( (@titles.empty? ? '' : (@titles.join(' ') + ' ')) + @givenname + ' ' + @surname )
   end
 
+  def title
+    self.titles.join(' ')
+  end
+
   def to_s()
     (@titles + [@givenname, @surname]).join(' ') 
   end

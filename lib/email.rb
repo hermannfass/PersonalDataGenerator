@@ -152,8 +152,8 @@ class EmailAddressSource
       givenname = name
       surname = surname || ''
     end
-    username = random_username( givenname.remove_accents(),
-                                surname.remove_accents() )
+    username = random_username( givenname.to_ascii(),
+                                surname.to_ascii() )
     domain = random_domain()
     EmailAddress.new( username, domain )
   end

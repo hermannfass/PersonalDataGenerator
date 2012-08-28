@@ -1,6 +1,5 @@
 Manifest
 README
-Rakefile
 lib/address.rb
 lib/email.rb
 lib/givennamelist.txt

@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = "Tools for the generation of random personal data."
   s.email = "hermann.fass@vonabiszet.de"
   s.extra_rdoc_files = ["README", "lib/address.rb", "lib/email.rb", "lib/givennamelist.txt", "lib/name.rb", "lib/person.rb", "lib/phone.rb", "lib/postaltownlist.txt", "lib/randomlist.rb", "lib/streetnamelist.txt", "lib/surnamelist.txt", "lib/townlist.txt"]
-  s.files = ["Manifest", "README", "Rakefile", "lib/address.rb", "lib/email.rb", "lib/givennamelist.txt", "lib/name.rb", "lib/person.rb", "lib/phone.rb", "lib/postaltownlist.txt", "lib/randomlist.rb", "lib/streetnamelist.txt", "lib/surnamelist.txt", "lib/townlist.txt", "personaldatagenerator.gemspec"]
+  s.files = ["Manifest", "README", "lib/address.rb", "lib/email.rb", "lib/givennamelist.txt", "lib/name.rb", "lib/person.rb", "lib/phone.rb", "lib/postaltownlist.txt", "lib/randomlist.rb", "lib/streetnamelist.txt", "lib/surnamelist.txt", "lib/townlist.txt", "personaldatagenerator.gemspec"]
   s.homepage = "http://git@github.com:hermannfass/PersonalDataGenerator.git"
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Personaldatagenerator", "--main", "README"]
   s.require_paths = ["lib"]

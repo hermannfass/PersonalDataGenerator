@@ -31,10 +31,10 @@ class Address
   # Return the data for this address as a Hash with sub Hash elements.
   def to_hash()
     {
-      :house_number => self.house_number,
-      :street => self.street,
-      :postal_code => self.postal_code,
-      :town => self.town
+      :house_number => @house_number,
+      :street => @street,
+      :postal_code => @postal_code,
+      :town => @town
     }
   end
 
@@ -48,7 +48,7 @@ class Address
   # Return this address in HTML format.
   # This inserts and HTML BR tag between street and town.
   def to_html()
-    "#{self.street} #{self.house_number}<br />#{self.postal_code} #{self.town}"
+    @street + ' ' + @house_number + '<br />' + @postal_code + ' ' + @town
   end
 
 end
@@ -76,7 +76,6 @@ class AddressSource
       house_number_pool.push( i.to_s )
     end
     @house_number_source = ListRandomizer.new( house_number_pool )
-
     @street_name_source = ListRandomizer.new( street_name_path )
     @postal_town_source = ListRandomizer.new( postal_town_path )
 

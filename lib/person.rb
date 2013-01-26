@@ -53,7 +53,8 @@ class Person
   def to_html( person_css_class = '', name_css_class = '' )
     "<p class=\"#{person_css_class}\">\n" +
     "<span class=\"#{name_css_class}\">#{@name.to_s}</span><br />\n" +
-    "#{@address.street}<br />#{@address.town}<br />\n" +
+    # "#{@address.street}<br />#{@address.town}<br />\n" +
+    @address.to_html + "<br />\n" +
     "#{@phone.to_s}<br />\n" +
     %Q(<a href="mailto:#{@email}" title="Email to #{name.to_s}" class="email">#{@email}</a>\n) +
     "</p>\n"
@@ -69,7 +70,9 @@ class Person
         :givenname => self.name.givenname,
         :surname => self.name.surname },
       :address => {
+        :housenumber => self.address.house_number,
         :street => self.address.street,
+        :postalcode => self.address.postal_code,
         :town => self.address.town
       },
       :phone => self.phone.to_s,

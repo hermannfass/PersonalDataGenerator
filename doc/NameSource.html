@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class NameSource - Person Data Generator</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-record">#record</a>
+    
+    <li ><a href="#method-i-records">#records</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-NameSource">
+  <h1 id="class-NameSource" class="class">
+    class NameSource
+  </h1>
+
+  <section class="description">
+    
+<p>Class to generate random names.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="DefaultTitles">DefaultTitles
+        
+        <dd><p>Sets of academic titles (prefixes) that might get assigned to a name. They
+are represented by a WeightedArray instance, that is built with a Hash
+argument. In this Hash each key is an Array of Strings (academic titles),
+while the value represents its &#39;weight&#39; - a value for its
+likelihood relative to the other sets of titles. If a name should get an
+academic title (a random decision influenced by @title_likelihood), then
+the chance that a title set with likelihood  of 2 will get picked twice as
+likely as one with a value of 1.</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-title_likelihood" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">title_likelihood</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Likelihood (percentage) that random names do have an academic title.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-titles" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">titles</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Pool of titles that might can be granted to random people.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-two_given_names_likelihood" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">two_given_names_likelihood</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Likelihood (percentage) that random names have two given names.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-two_surnames_likelihood" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">two_surnames_likelihood</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Likelihood (pecentage) that random names contain a double surname.</p>
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">( givenname_path = File.join( File.dirname(__FILE__), 'givennamelist.txt' ), surname_path = File.join( File.dirname(__FILE__), 'surnamelist.txt' ), title_likelihood = 5, two_given_names_likelihood = 5, two_surnames_likelihood = 5 )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructor.</p>
+
+<p>Provide the path to a textfile with given names (givenname_path), one per
+line, that can include composed names (e.g. “Hermann-Josef” or “Anna
+Lena”). Note that when picking a name you can still opt for multiple given
+names, and if the list of given names contains already a composed name the
+result might look unusual (e.g. “Andreas Hermann-Josef”).</p>
+
+<p>Provide the path to a textfile with surnames (surname_path), one per line,
+that can also consist of composed names. Again the results can look strange
+when picking a name with multiple surnames later on.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File name.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">givenname_path</span> =
+                  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>( <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;givennamelist.txt&#39;</span> ),
+                <span class="ruby-identifier">surname_path</span> =
+                  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>( <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;surnamelist.txt&#39;</span> ),
+                <span class="ruby-identifier">title_likelihood</span> = <span class="ruby-value">5</span>,
+                <span class="ruby-identifier">two_given_names_likelihood</span> = <span class="ruby-value">5</span>,
+                <span class="ruby-identifier">two_surnames_likelihood</span> = <span class="ruby-value">5</span>
+              )
+  <span class="ruby-ivar">@givenname_source</span> = <span class="ruby-constant">ListRandomizer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">givenname_path</span>)
+  <span class="ruby-ivar">@surname_source</span> = <span class="ruby-constant">ListRandomizer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">surname_path</span>)
+  <span class="ruby-ivar">@title_likelihood</span> = <span class="ruby-identifier">title_likelihood</span>
+  <span class="ruby-ivar">@two_given_names_likelihood</span> = <span class="ruby-identifier">two_given_names_likelihood</span>
+  <span class="ruby-ivar">@two_surnames_likelihood</span> = <span class="ruby-identifier">two_surnames_likelihood</span>
+  <span class="ruby-ivar">@title_pool</span> = <span class="ruby-constant">DefaultTitles</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-record" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">record</span><span
+            class="method-args">( arg_n_givennames = ( (rand(100) < @two_given_names_likelihood) ? 2 : 1 ), arg_n_surnames = ( (rand(100) < @two_surnames_likelihood) ? 2 : 1 ) )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return a random full name wraped in a <a href="Name.html">Name</a>
+instance.</p>
+
+<p>The full name is made up by one or more given names plus a last name.
+Multiple first names will be joined with a space character (ASCII 0x20).
+The last name can be composed by multiple last names, in which case they
+are joined with a hyphen (ASCII 0x2D). This follows very much German
+traditions, except for some composed first names like “Franz-Josef” or
+“Anna-Lena”. The latter are considered single names, i.e. have to go to the
+data source if wanted.</p>
+
+<p>To influence the likelihood of double given names, of composed surnames, or
+of academic title, modify the instance variables
+@two_given_names_likelihood, @two_surnames_likelihood, and
+@title_likelihood.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="record-source">
+            <pre><span class="ruby-comment"># File name.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">record</span>( <span class="ruby-identifier">arg_n_givennames</span> =
+              ( (<span class="ruby-identifier">rand</span>(<span class="ruby-value">100</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@two_given_names_likelihood</span>) <span class="ruby-operator">?</span> <span class="ruby-value">2</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span> ),
+            <span class="ruby-identifier">arg_n_surnames</span> =
+              ( (<span class="ruby-identifier">rand</span>(<span class="ruby-value">100</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@two_surnames_likelihood</span>) <span class="ruby-operator">?</span> <span class="ruby-value">2</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span> )
+          )
+  <span class="ruby-identifier">givenname</span> = <span class="ruby-ivar">@givenname_source</span>.<span class="ruby-identifier">records</span>(<span class="ruby-identifier">arg_n_givennames</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)
+  <span class="ruby-identifier">surname</span> = <span class="ruby-ivar">@surname_source</span>.<span class="ruby-identifier">records</span>(<span class="ruby-identifier">arg_n_surnames</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;-&#39;</span>)
+  <span class="ruby-identifier">titles</span> = (<span class="ruby-identifier">rand</span>(<span class="ruby-value">100</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@title_likelihood</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@title_pool</span>.<span class="ruby-identifier">sample</span> <span class="ruby-operator">:</span> []
+  <span class="ruby-constant">Name</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">givenname</span>, <span class="ruby-identifier">surname</span>, <span class="ruby-identifier">titles</span> )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-records" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">records</span><span
+            class="method-args">( quantity = 1 )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return an Array of random <a href="Name.html">Name</a> objects. The
+parameter determines how many full names are to be generated.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="records-source">
+            <pre><span class="ruby-comment"># File name.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">records</span>( <span class="ruby-identifier">quantity</span> = <span class="ruby-value">1</span> )
+  <span class="ruby-identifier">names</span> = []
+  <span class="ruby-identifier">quantity</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">names</span>.<span class="ruby-identifier">push</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">record</span>()
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">names</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

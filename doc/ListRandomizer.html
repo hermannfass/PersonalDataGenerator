@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class ListRandomizer - Person Data Generator</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Array
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-record">#record</a>
+    
+    <li ><a href="#method-i-records">#records</a>
+    
+    <li ><a href="#method-i-reset_unused_records">#reset_unused_records</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-ListRandomizer">
+  <h1 id="class-ListRandomizer" class="class">
+    class ListRandomizer
+  </h1>
+
+  <section class="description">
+    
+<p>Class to maintain lists of entries and to extract data randomly. Entries
+will be selected only once. In case all entries have been selected, the
+available records are reset to the full list that was created at the
+beginning.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="DefaultRecordSeparator">DefaultRecordSeparator
+        
+        <dd><p>When reading data from IO (File) or String input this attributes value is
+considered the delimiter between the individual records (read: lines). <a
+href="ListRandomizer.html#DefaultRecordSeparator">DefaultRecordSeparator</a>
+= “n”</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-all_records" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">all_records</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>All records initially read into this instance.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-unused_records" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">unused_records</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Those records that have not been used since the last time the method <a
+href="ListRandomizer.html#method-i-reset_unused_records">#reset_unused_records</a>()
+was called.</p>
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">( data_source, record_delimiter = DefaultRecordSeparator )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructor. Initializes the data set from the data source provided as the
+first argument. This argument will be evaluated and must be either IO
+object (or kind of IO, e.g. File), a String describing the path to a file,
+a String containing all the records (interpreted as such if the String is
+not a valid path to a file), or an Array of entries.</p>
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File randomlist.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">data_source</span>, <span class="ruby-identifier">record_delimiter</span> = <span class="ruby-constant">DefaultRecordSeparator</span> )
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">data_source</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Array</span>
+    <span class="ruby-ivar">@all_records</span> = <span class="ruby-identifier">data_source</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">IO</span>
+    <span class="ruby-ivar">@all_records</span> = <span class="ruby-identifier">data_source</span>.<span class="ruby-identifier">read</span>.<span class="ruby-identifier">split</span>( <span class="ruby-identifier">record_delimiter</span> )
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">String</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>( <span class="ruby-identifier">data_source</span> )
+      <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>( <span class="ruby-identifier">data_source</span>, <span class="ruby-value">:encoding</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;utf-8&#39;</span> ) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@all_records</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span>.<span class="ruby-identifier">split</span>( <span class="ruby-identifier">record_delimiter</span> )
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@all_records</span> = <span class="ruby-identifier">data_source</span>.<span class="ruby-identifier">split</span>( <span class="ruby-identifier">record_delimiter</span> )
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span>( <span class="ruby-string">&quot;ListRandomizer requires a kind of IO, Array, or String argument.&quot;</span> )
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@unused_records</span> = <span class="ruby-ivar">@all_records</span>.<span class="ruby-identifier">dup</span>
+  <span class="ruby-keyword">super</span>( <span class="ruby-ivar">@all_records</span> )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-record" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">record</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Select randomly a record and return it as a String. This record is taken
+out of the available data set (i.e. removed from @unused_records).</p>
+          
+          
+
+          
+          <div class="method-source-code" id="record-source">
+            <pre><span class="ruby-comment"># File randomlist.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">record</span>
+  <span class="ruby-comment"># Reset if all available records have been used:</span>
+  <span class="ruby-keyword">if</span> ( <span class="ruby-ivar">@unused_records</span>.<span class="ruby-identifier">empty?</span> )
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">reset_unused_records</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">selected_index</span> = <span class="ruby-identifier">rand</span>( <span class="ruby-ivar">@unused_records</span>.<span class="ruby-identifier">length</span> )
+  <span class="ruby-identifier">selected_value</span> = <span class="ruby-ivar">@unused_records</span>[<span class="ruby-identifier">selected_index</span>]
+  <span class="ruby-ivar">@unused_records</span>.<span class="ruby-identifier">delete_at</span>( <span class="ruby-identifier">selected_index</span> )
+  <span class="ruby-identifier">selected_value</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-records" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">records</span><span
+            class="method-args">( quantity = 1 )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Select randomly one or more records (list entries) and return them as an
+Array of Strings. The number of records to be returned is in the argument;
+1 by default. This calls the record() method multiple times.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="records-source">
+            <pre><span class="ruby-comment"># File randomlist.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">records</span>( <span class="ruby-identifier">quantity</span> = <span class="ruby-value">1</span> )
+  <span class="ruby-identifier">selected_values</span> = []
+  <span class="ruby-identifier">quantity</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">selected_values</span>.<span class="ruby-identifier">push</span>( <span class="ruby-identifier">record</span> )
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">selected_values</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-reset_unused_records" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset_unused_records</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Reset the @unused_records attribute to the initial value (in @all_records).
+This is automatically called by the record() method in case it is running
+out of unused records. There might be reasons for calling it from outside,
+thus it is a public method.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reset_unused_records-source">
+            <pre><span class="ruby-comment"># File randomlist.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset_unused_records</span>
+  <span class="ruby-ivar">@unused_records</span> = <span class="ruby-ivar">@all_records</span>.<span class="ruby-identifier">dup</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

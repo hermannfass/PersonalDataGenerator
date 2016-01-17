@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class PersonSource - Person Data Generator</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-record">#record</a>
+    
+    <li ><a href="#method-i-records">#records</a>
+    
+    <li ><a href="#method-i-records_as_xml">#records_as_xml</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-PersonSource">
+  <h1 id="class-PersonSource" class="class">
+    class PersonSource
+  </h1>
+
+  <section class="description">
+    
+<p>Class to generate random people.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-email_address_source" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">email_address_source</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Email address generator used to generate random email addresses.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-name_source" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">name_source</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p><a href="Name.html">Name</a> generator used to generate random names.</p>
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">( givenname_path = File.join(File.dirname(__FILE__), 'givennamelist.txt'), surname_path = File.join(File.dirname(__FILE__), 'surnamelist.txt'), street_name_path = File.join(File.dirname(__FILE__), 'streetnamelist.txt'), postal_town_path = File.join(File.dirname(__FILE__), 'postaltownlist.txt') )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructor. The arguments are paths to text files that should contain one
+record per line with given names, surnames, street names, and town names
+respectively. Each town name should be prepended by a postal code.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File person.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">givenname_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;givennamelist.txt&#39;</span>),
+                <span class="ruby-identifier">surname_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;surnamelist.txt&#39;</span>),
+                <span class="ruby-identifier">street_name_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;streetnamelist.txt&#39;</span>),
+                <span class="ruby-identifier">postal_town_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;postaltownlist.txt&#39;</span>)
+               )
+  <span class="ruby-ivar">@name_source</span> = <span class="ruby-constant">NameSource</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">givenname_path</span>, <span class="ruby-identifier">surname_path</span> )
+  <span class="ruby-ivar">@address_source</span> = <span class="ruby-constant">AddressSource</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">street_name_path</span>, <span class="ruby-identifier">postal_town_path</span> )
+  <span class="ruby-ivar">@phone_number_source</span> = <span class="ruby-constant">PhoneNumberSource</span>.<span class="ruby-identifier">new</span>()
+  <span class="ruby-ivar">@email_address_source</span> = <span class="ruby-constant">EmailAddressSource</span>.<span class="ruby-identifier">new</span>()
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-record" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">record</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns one record, i.e. one <a href="Person.html">Person</a> instance with
+random data. Random decisions like number of given names, surnames, or the
+likelihood of an academic title are hardcoded here.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="record-source">
+            <pre><span class="ruby-comment"># File person.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">record</span>()
+  <span class="ruby-identifier">name</span> = <span class="ruby-ivar">@name_source</span>.<span class="ruby-identifier">record</span>()
+  <span class="ruby-constant">Person</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">name</span>,
+              <span class="ruby-ivar">@address_source</span>.<span class="ruby-identifier">record</span>(),
+              <span class="ruby-ivar">@phone_number_source</span>.<span class="ruby-identifier">record</span>(),
+              <span class="ruby-ivar">@email_address_source</span>.<span class="ruby-identifier">record_from_name</span>(<span class="ruby-identifier">name</span>) )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-records" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">records</span><span
+            class="method-args">( quantity = 1 )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return an Array of <a href="Person.html">Person</a> instances with random
+data.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="records-source">
+            <pre><span class="ruby-comment"># File person.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">records</span>( <span class="ruby-identifier">quantity</span> = <span class="ruby-value">1</span> )
+  <span class="ruby-identifier">persons</span> = []
+  <span class="ruby-identifier">quantity</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">persons</span>.<span class="ruby-identifier">push</span>( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">record</span>() )
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">persons</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-records_as_xml" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">records_as_xml</span><span
+            class="method-args">( quantity = 1 )</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return XML data containing one root element &#39;people&#39; and several
+children as &#39;person&#39; elements.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="records_as_xml-source">
+            <pre><span class="ruby-comment"># File person.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">records_as_xml</span>( <span class="ruby-identifier">quantity</span> = <span class="ruby-value">1</span> )
+  <span class="ruby-identifier">people_arr</span> = []
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">records</span>(<span class="ruby-identifier">quantity</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">people_arr</span>.<span class="ruby-identifier">push</span>( <span class="ruby-identifier">p</span>.<span class="ruby-identifier">to_hash</span>() )
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">XmlSimple</span>.<span class="ruby-identifier">xml_out</span>( { <span class="ruby-value">:person</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">people_arr</span> },
+                     { <span class="ruby-value">:NoAttr=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">true</span>, <span class="ruby-value">:RootName=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">:people</span>, <span class="ruby-value">:XmlDeclaration=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">true</span> }
+                   )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

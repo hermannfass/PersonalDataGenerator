@@ -1,12 +1,11 @@
-Ruby tools for generating random personal data for test environments etc.
+Ruby tools for generating random personal data, e.g. to be used for system
+tests.
 
-Note that the Gem is currently not kept up to date, so you might
-better copy the files from the lib directory to an appropriate
-location on your system.
+The lib directory contains all that is needed, i.e. the Ruby code and some
+text data files. Names and postal codes are German, but the data files can be
+replaced by any other data sets. The formats are self-explaining.
 
-The lib directory contains, beside the Ruby code (.rb) also some
-text files (.txt) with sample data for German locations or German language,
-respectively.
+Documentation in the 'doc' directory was generated with RDoc. 
 
 name.rb
   Parse and generates people names, considering also combined given
@@ -21,7 +20,7 @@ address.rb
   * streetnamelist.txt
     contains fictive street names in German language.
   * postaltownlist.txt
-    contains a list with towns and the corresponding postal codes.
+    contains the German whole postal code dictionary.
 
 email.rb
   Generate random email addresses.
@@ -30,7 +29,6 @@ phone.rb
   Generates German phone numbers.
   
 person.rb
-  Wraps personal data (name, address, phone, email address) into
-  a class.
+  Personal data (name, address, phone, email address)
 
 
